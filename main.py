@@ -129,7 +129,8 @@ async def system_health():
     
     return {
         "status": overall_status,
-        "components": components
+        "components": components,
+        "timestamp": __import__('datetime').datetime.utcnow().isoformat() + 'Z'
     }
 
 @app.get("/system/diagnostics")
@@ -190,13 +191,27 @@ async def system_diagnostics():
         except Exception:
             integration_checks["noopur_ready"] = False
     
-    # Compute overall integration readiness
+    # Compute overall integration readiness and detailed reasons
     integration_ready = all(integration_checks.values())
-    
+
+    failing_components = [k for k, v in integration_checks.items() if not v]
+
+    # integration score: proportion of passing checks (0.0 - 1.0)
+    total_checks = len(integration_checks) if integration_checks else 0
+    passing = sum(1 for v in integration_checks.values() if v)
+    integration_score = round((passing / total_checks) if total_checks else 0.0, 3)
+
+    readiness_reason = "all_checks_passed" if integration_ready else ";".join(failing_components) if failing_components else "unknown"
+
     return {
         "module_load_status": module_load_status,
         "integration_ready": integration_ready,
         "integration_checks": integration_checks,
+        "integration_score": integration_score,
+        "readiness_reason": readiness_reason,
+        "failing_components": failing_components,
+        "timestamp": __import__('datetime').datetime.utcnow().isoformat() + 'Z',
+        "signature": None,
         "modules": {name: type(agent).__name__ for name, agent in gateway.agents.items() if agent is not None},
         "memory": {
             "total_interactions": total_interactions,

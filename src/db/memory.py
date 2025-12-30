@@ -32,6 +32,16 @@ class ContextMemory:
                     response_data TEXT NOT NULL
                 )
             """)
+            # Generations table records canonical mapping from external generation_id -> interaction
+            conn.execute("""
+                CREATE TABLE IF NOT EXISTS generations (
+                    generation_id TEXT PRIMARY KEY,
+                    user_id TEXT,
+                    interaction_id INTEGER,
+                    created_at TEXT,
+                    payload TEXT
+                )
+            """)
             
             # Check if module column exists (for existing databases)
             cursor = conn.execute("PRAGMA table_info(interactions)")
@@ -62,6 +72,16 @@ class ContextMemory:
                 response_data TEXT NOT NULL
             )
         """)
+        # Ensure generations table exists for in-memory DBs as well
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS generations (
+                generation_id TEXT PRIMARY KEY,
+                user_id TEXT,
+                interaction_id INTEGER,
+                created_at TEXT,
+                payload TEXT
+            )
+        """)
         conn.execute("""
             CREATE INDEX IF NOT EXISTS idx_user_module_timestamp 
             ON interactions(user_id, module, timestamp DESC)
@@ -87,6 +107,29 @@ class ContextMemory:
                         """,
                         (user_id, module, timestamp, json.dumps(request_data), json.dumps(response_data))
                     )
+                    interaction_id = cursor.lastrowid
+
+                    # If response includes generation_id, persist mapping for deterministic lifecycle
+                    try:
+                        resp_result = response_data.get('result', {}) if isinstance(response_data, dict) else {}
+                        gen_id = None
+                        if isinstance(resp_result, dict):
+                            gen_id = resp_result.get('generation_id')
+                        # Also check top-level response_data for legacy payloads
+                        if not gen_id and isinstance(response_data, dict):
+                            gen_id = response_data.get('generation_id')
+
+                        if gen_id:
+                            cursor.execute(
+                                """
+                                INSERT OR REPLACE INTO generations (generation_id, user_id, interaction_id, created_at, payload)
+                                VALUES (?, ?, ?, ?, ?)
+                                """,
+                                (str(gen_id), user_id, interaction_id, timestamp, json.dumps({"request": request_data, "response": response_data}))
+                            )
+                    except Exception:
+                        # Do not let generation mapping failures block main transaction
+                        pass
 
                     # Deterministic retention: keep newest by timestamp, then id
                     cursor.execute(
@@ -155,3 +198,47 @@ class ContextMemory:
                 }
                 for row in cursor.fetchall()
             ]
+
+    def get_generation(self, generation_id: str) -> Optional[Dict[str, Any]]:
+        """Retrieve stored generation mapping and associated interaction payload."""
+        with sqlite3.connect(self.db_path, timeout=30) as conn:
+            self._ensure_table_exists(conn)
+            cursor = conn.execute(
+                """
+                SELECT generation_id, user_id, interaction_id, created_at, payload
+                FROM generations
+                WHERE generation_id = ?
+            """,
+                (str(generation_id),)
+            )
+            row = cursor.fetchone()
+            if not row:
+                return None
+            payload = json.loads(row[4]) if row[4] else None
+            # Fetch the interaction record if available
+            inter = None
+            if row[2]:
+                c2 = conn.execute(
+                    """
+                    SELECT module, timestamp, request_data, response_data
+                    FROM interactions
+                    WHERE id = ?
+                """,
+                    (row[2],)
+                )
+                r2 = c2.fetchone()
+                if r2:
+                    inter = {
+                        "module": r2[0],
+                        "timestamp": r2[1],
+                        "request": json.loads(r2[2]),
+                        "response": json.loads(r2[3])
+                    }
+
+            return {
+                "generation_id": row[0],
+                "user_id": row[1],
+                "interaction": inter,
+                "created_at": row[3],
+                "payload": payload
+            }

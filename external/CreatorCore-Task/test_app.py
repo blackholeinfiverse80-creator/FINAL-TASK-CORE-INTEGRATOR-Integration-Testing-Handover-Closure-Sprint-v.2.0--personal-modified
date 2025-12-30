@@ -1,4 +1,5 @@
 import pytest
+pytest.importorskip("flask")
 from app import app, db, get_related_context
 from models import Generation
 

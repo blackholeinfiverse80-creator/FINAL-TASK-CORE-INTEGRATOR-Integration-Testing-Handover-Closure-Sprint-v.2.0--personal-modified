@@ -1,5 +1,5 @@
 from typing import Dict, Any, List
-from src.utils.noopur_client import NoopurClient
+from src.utils.bridge_client import BridgeClient
 from config.config import INTEGRATOR_USE_NOOPUR
 
 
@@ -8,7 +8,8 @@ class CreatorRouter:
 
     def __init__(self, memory_adapter=None):
         self.memory = memory_adapter
-        self.noopur = NoopurClient() if INTEGRATOR_USE_NOOPUR else None
+        # BridgeClient is the canonical surface for CreatorCore communication
+        self.bridge = BridgeClient() if INTEGRATOR_USE_NOOPUR else None
 
     def prewarm_and_prepare(self, request: str, user_id: str, input_data: Dict[str, Any]) -> Dict[str, Any]:
         """Fetch related context and history, attach to input_data."""
@@ -18,9 +19,9 @@ class CreatorRouter:
             gen_type = input_data.get("type") or input_data.get("data", {}).get("type", "story")
 
             # Get history from external service for better context
-            if self.noopur:
+            if self.bridge:
                 try:
-                    history_resp = self.noopur.history()
+                    history_resp = self.bridge.history()
                     if isinstance(history_resp, list):
                         # Use recent history as additional context
                         recent_history = history_resp[:5]  # Last 5 generations
@@ -29,17 +30,18 @@ class CreatorRouter:
                     pass
 
             # Generate with enhanced context
-            if self.noopur and topic and goal:
+            if self.bridge and topic and goal:
                 payload = {"topic": topic, "goal": goal, "type": gen_type}
-                resp = self.noopur.generate(payload)
+                resp = self.bridge.generate(payload)
                 related = resp.get("related_context", [])
                 input_data.setdefault("related_context", related)
                 
-                # Store generation_id for feedback
-                if "generated_text" in resp:
+                # Store generation metadata to be deterministic at gateway level
+                if "generated_text" in resp or "generation_id" in resp:
                     input_data.setdefault("generation_metadata", {
                         "source": "external",
-                        "can_provide_feedback": True
+                        "can_provide_feedback": True,
+                        "generation_id": resp.get("generation_id")
                     })
                 return input_data
 
@@ -55,7 +57,7 @@ class CreatorRouter:
 
     def forward_feedback(self, payload: Dict[str, Any]) -> Dict[str, Any]:
         # Normalize and forward to Noopur feedback endpoint
-        if not self.noopur:
+        if not self.bridge:
             return {"status": "disabled"}
         # Try multiple payload shapes
         body = {}
@@ -66,4 +68,4 @@ class CreatorRouter:
         else:
             body = payload
 
-        return self.noopur.feedback(body)
+        return self.bridge.feedback(body)

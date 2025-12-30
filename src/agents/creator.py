@@ -2,7 +2,7 @@ from typing import Dict, Any, List
 from .base import BaseAgent
 import requests
 from config.config import NOOPUR_BASE_URL
-from ..utils.resilient_client import ResilientHTTPClient
+from src.utils.bridge_client import BridgeClient
 from ..core.feedback_models import CanonicalFeedbackSchema
 
 class CreatorAgent(BaseAgent):
@@ -10,7 +10,8 @@ class CreatorAgent(BaseAgent):
     
     def __init__(self):
         super().__init__()
-        self.resilient_client = ResilientHTTPClient(NOOPUR_BASE_URL)
+        # Use BridgeClient as the canonical CreatorCore integration surface
+        self.bridge = BridgeClient()
     
     def handle_request(self, intent: str, data: Dict[str, Any], 
                       context: List[Dict[str, Any]] = None) -> Dict[str, Any]:
@@ -20,13 +21,10 @@ class CreatorAgent(BaseAgent):
             # Use related_context from CreatorRouter if available
             related_context = data.get("related_context", [])
             
-            # Try to call external CreatorCore service with resilient client
+            # Try to call external CreatorCore service via BridgeClient
             prompt = data.get("prompt") or data.get("topic", "")
             if prompt:
-                external_result = self.resilient_client.post(
-                    "/generate",
-                    json={"prompt": prompt}
-                )
+                external_result = self.bridge.generate({"prompt": prompt})
                 
                 if not external_result.get("error"):
                     return {
@@ -82,7 +80,7 @@ class CreatorAgent(BaseAgent):
                 
                 # Forward to Noopur using canonical schema
                 noopur_payload = feedback_schema.to_noopur_format()
-                result = self.resilient_client.post("/feedback", json=noopur_payload)
+                result = self.bridge.feedback(noopur_payload)
                 
                 if not result.get("error"):
                     return {
@@ -113,7 +111,7 @@ class CreatorAgent(BaseAgent):
             
         elif intent == "history":
             # Get history from external service with resilient client
-            history_result = self.resilient_client.get("/history")
+            history_result = self.bridge.history()
             
             if not history_result.get("error"):
                 return {

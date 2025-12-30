@@ -9,6 +9,9 @@ FastAPI-based orchestration platform with SSPL Phase III security, multi-databas
 - **Agent System**: Finance, Education, Creator modules with memory management
 - **Resilient HTTP Client**: Circuit breaker pattern, retry logic, timeout handling
 - **Observability**: Health checks, diagnostics, logging endpoints
+- **InsightFlow Telemetry**: Structured event generator compatible with InsightFlow (heartbeats, degraded alerts, integration_ready signals)
+- **BridgeClient (Canonical)**: `BridgeClient` v1.0.0 is the single, versioned integration surface for CreatorCore (generation, feedback, history, logs). All routing and Gateway flows must use it.
+- **Deterministic Feedback Mapping**: Generation lifecycle mapping (generation_id → interaction) persisted in memory for guaranteed feedback retrieval and replay.
 - **Testing Suite**: Security validation, database testing, comprehensive coverage
 
 ## Quick Start
