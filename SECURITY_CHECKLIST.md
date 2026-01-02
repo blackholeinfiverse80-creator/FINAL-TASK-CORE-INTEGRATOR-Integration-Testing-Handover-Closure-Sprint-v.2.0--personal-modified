@@ -10,8 +10,8 @@
 - [x] No personal information exposed
 
 ### **Removed/Replaced Credentials**
-- [x] ~~`NOOPUR_API_KEY=AIzaSyCH1SdgykzFP3p5rse_57ulVgHtwB7HocA`~~ → Empty/placeholder
-- [x] ~~`mongodb+srv://user1:user1@cluster0.ntuno8m.mongodb.net/`~~ → localhost template
+- [x] ~~`NOOPUR_API_KEY=` → Empty/placeholder
+- [x] ~~`mongodb+srv://:@cluster0.ntuno8m.mongodb.net/`~~ → localhost template
 - [x] All MongoDB credentials replaced with localhost
 - [x] All API keys replaced with placeholders
 
