@@ -100,6 +100,12 @@ When security is enabled, all requests to `/core` require:
 - `src/utils/resilient_client.py` - HTTP client with circuit breaker (available but not used in main flow)
 - `security_client.py` - Security testing client
 
+## Team Integration Guides
+- `documentation/DEPLOYMENT_GUIDE.md` - Complete deployment instructions for all teams
+- `documentation/NOOPUR_API_CONTRACT.md` - API specification for CreatorCore backend (Noopur)
+- `documentation/INSIGHTFLOW_INTEGRATION.md` - Telemetry integration guide (Sankalp)
+- `documentation/BRIDGE_CLIENT.md` - BridgeClient contract and usage (Ashmit)
+
 ## Production Ready
 - ✅ CI-safe test suite (11/11 tests passing)
 - ✅ Canonical feedback schema with validation

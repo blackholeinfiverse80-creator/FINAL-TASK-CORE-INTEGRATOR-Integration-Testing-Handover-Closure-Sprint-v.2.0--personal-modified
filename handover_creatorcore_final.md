@@ -11,28 +11,39 @@ Overview
 
 Actions for Integrator (Ashmit)
 --------------------------------
-- Validate the external CreatorCore deployment against BridgeClient contract (see `documentation/BRIDGE_CLIENT.md`).
-- Validate end-to-end generation → feedback → retrieval with real CreatorCore.
-- Run `/scripts/generate_readiness_reports.py` to produce readiness reports used by CI and handover.
+- **Primary**: Follow `documentation/DEPLOYMENT_GUIDE.md` for complete setup
+- Validate the external CreatorCore deployment against BridgeClient contract (see `documentation/BRIDGE_CLIENT.md`)
+- Validate end-to-end generation → feedback → retrieval with real CreatorCore
+- Run `/scripts/generate_readiness_reports.py` to produce readiness reports used by CI and handover
+- **API Testing**: Use `security_client.py` for SSPL Phase III validation
 
 Actions for Creator Backend (Noopur)
 -------------------------------------
-- Ensure `/generate` returns `generation_id` in the stable v1 contract.
-- Confirm `/feedback` accepts canonical feedback schema (see `src/core/feedback_models.py`).
-- Provide a health endpoint `/system/health` that returns `status: healthy` when ready.
+- **Primary**: Implement API contract specified in `documentation/NOOPUR_API_CONTRACT.md`
+- Ensure `/generate` returns `generation_id` in the stable v1 contract
+- Confirm `/feedback` accepts canonical feedback schema (see `src/core/feedback_models.py`)
+- Provide a health endpoint `/system/health` that returns `status: healthy` when ready
+- **Testing**: Use provided curl commands in API contract for validation
+- **Integration**: Test with Core Integrator using deployment guide
 
 Actions for InsightFlow (Telemetry team)
 ----------------------------------------
-- Review `/reports/insightflow_event_samples.json` and the `src/utils/insightflow.py` generator.
-- Confirm field mappings and ingestion requirements for `integration_ready` and `degraded` signals.
+- **Primary**: Follow `documentation/INSIGHTFLOW_INTEGRATION.md` for complete integration
+- Review `/reports/insightflow_event_samples.json` and the `src/utils/insightflow.py` generator
+- Confirm field mappings and ingestion requirements for `integration_ready` and `degraded` signals
+- **Implementation**: Provide ingestion endpoint URL and authentication details
+- **Monitoring**: Set up dashboard for integration_score, failing_components, and event frequency
 
 Handover Deliverables
 ---------------------
-- `ARCHITECTURE_DECISION_RECORD.md` — rationale and plan for choosing BridgeClient as the canonical surface.
-- `documentation/BRIDGE_CLIENT.md` — contract & usage for BridgeClient v1.0.0.
-- `reports/final_readiness_matrix.json` & `reports/final_ci_readiness.json` — current readiness artifacts.
-- `reports/insightflow_event_samples.json` — sample telemetry payloads.
-- Test suites: `tests/test_feedback_flow_v2.py`, `tests/test_bridge_client.py`, `tests/test_insightflow.py`.
+- `ARCHITECTURE_DECISION_RECORD.md` — rationale and plan for choosing BridgeClient as the canonical surface
+- `documentation/BRIDGE_CLIENT.md` — contract & usage for BridgeClient v1.0.0
+- `documentation/NOOPUR_API_CONTRACT.md` — complete API specification for CreatorCore backend
+- `documentation/INSIGHTFLOW_INTEGRATION.md` — telemetry integration guide with event schemas
+- `documentation/DEPLOYMENT_GUIDE.md` — comprehensive deployment instructions for all teams
+- `reports/final_readiness_matrix.json` & `reports/final_ci_readiness.json` — current readiness artifacts
+- `reports/insightflow_event_samples.json` — sample telemetry payloads
+- Test suites: `tests/test_feedback_flow_v2.py`, `tests/test_bridge_client.py`, `tests/test_insightflow.py`
 
 Contact Points
 --------------
