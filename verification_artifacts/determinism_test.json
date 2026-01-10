@@ -1,0 +1,27 @@
+{
+  "deterministic": true,
+  "runs": [
+    {
+      "run": 1,
+      "integration_ready": true,
+      "integration_score": 1.0,
+      "health_status": "healthy",
+      "timestamp": "2026-01-10T06:25:02.628518Z"
+    },
+    {
+      "run": 2,
+      "integration_ready": true,
+      "integration_score": 1.0,
+      "health_status": "healthy",
+      "timestamp": "2026-01-10T06:25:12.897218Z"
+    },
+    {
+      "run": 3,
+      "integration_ready": true,
+      "integration_score": 1.0,
+      "health_status": "healthy",
+      "timestamp": "2026-01-10T06:25:23.137033Z"
+    }
+  ],
+  "summary": "integration_ready: True, score: 1.0, consistent: True"
+}

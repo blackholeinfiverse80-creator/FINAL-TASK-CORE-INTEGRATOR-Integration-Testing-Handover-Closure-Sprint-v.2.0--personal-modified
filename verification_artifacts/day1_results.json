@@ -1,0 +1,351 @@
+{
+  "sqlite_only": {
+    "health": {
+      "status": "healthy",
+      "components": {
+        "database": "healthy",
+        "gateway": "healthy",
+        "modules": 4
+      },
+      "timestamp": "2026-01-10T06:36:14.925515Z",
+      "insightflow_event": {
+        "insightflow_version": "1.0.0",
+        "event_type": "heartbeat",
+        "component": "core_integrator",
+        "status": "healthy",
+        "details": {
+          "database": "healthy",
+          "gateway": "healthy",
+          "modules": 4
+        },
+        "timestamp": "2026-01-10T06:36:14.925405+00:00"
+      }
+    },
+    "diagnostics": {
+      "module_load_status": {
+        "finance": "valid",
+        "education": "valid",
+        "creator": "valid",
+        "sample_text": "valid"
+      },
+      "integration_ready": true,
+      "integration_checks": {
+        "core_modules_loaded": true,
+        "database_accessible": true,
+        "gateway_initialized": true,
+        "memory_adapter_ready": true
+      },
+      "integration_score": 1.0,
+      "readiness_reason": "all_checks_passed",
+      "failing_components": [],
+      "timestamp": "2026-01-10T06:36:16.968515Z",
+      "signature": null,
+      "modules": {
+        "finance": "FinanceAgent",
+        "education": "EducationAgent",
+        "creator": "CreatorAgent",
+        "sample_text": "SampleTextModule"
+      },
+      "memory": {
+        "total_interactions": 17,
+        "unique_users": 6,
+        "db_path": "data/context.db",
+        "adapter_type": "SQLiteAdapter"
+      },
+      "security": {
+        "nonce_store_enabled": true,
+        "sspl_middleware": false
+      },
+      "version": "1.0.0",
+      "insightflow_event": {
+        "insightflow_version": "1.0.0",
+        "event_type": "integration_ready",
+        "component": "core_integrator",
+        "status": "healthy",
+        "details": {
+          "integration_checks": {
+            "core_modules_loaded": true,
+            "database_accessible": true,
+            "gateway_initialized": true,
+            "memory_adapter_ready": true
+          },
+          "module_load_status": {
+            "finance": "valid",
+            "education": "valid",
+            "creator": "valid",
+            "sample_text": "valid"
+          },
+          "readiness_reason": "all_checks_passed"
+        },
+        "timestamp": "2026-01-10T06:36:16.968436+00:00",
+        "integration_score": 1.0
+      }
+    },
+    "feedback_rejection": true,
+    "integration_ready": true,
+    "integration_score": 1.0
+  },
+  "mongodb_enabled": {
+    "health": {
+      "status": "healthy",
+      "components": {
+        "database": "healthy",
+        "gateway": "healthy",
+        "modules": 4
+      },
+      "timestamp": "2026-01-10T06:36:23.104435Z",
+      "insightflow_event": {
+        "insightflow_version": "1.0.0",
+        "event_type": "heartbeat",
+        "component": "core_integrator",
+        "status": "healthy",
+        "details": {
+          "database": "healthy",
+          "gateway": "healthy",
+          "modules": 4
+        },
+        "timestamp": "2026-01-10T06:36:23.104341+00:00"
+      }
+    },
+    "diagnostics": {
+      "module_load_status": {
+        "finance": "valid",
+        "education": "valid",
+        "creator": "valid",
+        "sample_text": "valid"
+      },
+      "integration_ready": true,
+      "integration_checks": {
+        "core_modules_loaded": true,
+        "database_accessible": true,
+        "gateway_initialized": true,
+        "memory_adapter_ready": true
+      },
+      "integration_score": 1.0,
+      "readiness_reason": "all_checks_passed",
+      "failing_components": [],
+      "timestamp": "2026-01-10T06:36:25.151000Z",
+      "signature": null,
+      "modules": {
+        "finance": "FinanceAgent",
+        "education": "EducationAgent",
+        "creator": "CreatorAgent",
+        "sample_text": "SampleTextModule"
+      },
+      "memory": {
+        "total_interactions": 17,
+        "unique_users": 6,
+        "db_path": "data/context.db",
+        "adapter_type": "SQLiteAdapter"
+      },
+      "security": {
+        "nonce_store_enabled": true,
+        "sspl_middleware": false
+      },
+      "version": "1.0.0",
+      "insightflow_event": {
+        "insightflow_version": "1.0.0",
+        "event_type": "integration_ready",
+        "component": "core_integrator",
+        "status": "healthy",
+        "details": {
+          "integration_checks": {
+            "core_modules_loaded": true,
+            "database_accessible": true,
+            "gateway_initialized": true,
+            "memory_adapter_ready": true
+          },
+          "module_load_status": {
+            "finance": "valid",
+            "education": "valid",
+            "creator": "valid",
+            "sample_text": "valid"
+          },
+          "readiness_reason": "all_checks_passed"
+        },
+        "timestamp": "2026-01-10T06:36:25.150921+00:00",
+        "integration_score": 1.0
+      }
+    },
+    "feedback_rejection": true,
+    "integration_ready": true,
+    "integration_score": 1.0
+  },
+  "noopur_enabled": {
+    "health": {
+      "status": "healthy",
+      "components": {
+        "database": "healthy",
+        "gateway": "healthy",
+        "modules": 4
+      },
+      "timestamp": "2026-01-10T06:36:31.309985Z",
+      "insightflow_event": {
+        "insightflow_version": "1.0.0",
+        "event_type": "heartbeat",
+        "component": "core_integrator",
+        "status": "healthy",
+        "details": {
+          "database": "healthy",
+          "gateway": "healthy",
+          "modules": 4
+        },
+        "timestamp": "2026-01-10T06:36:31.309836+00:00"
+      }
+    },
+    "diagnostics": {
+      "module_load_status": {
+        "finance": "valid",
+        "education": "valid",
+        "creator": "valid",
+        "sample_text": "valid"
+      },
+      "integration_ready": true,
+      "integration_checks": {
+        "core_modules_loaded": true,
+        "database_accessible": true,
+        "gateway_initialized": true,
+        "memory_adapter_ready": true
+      },
+      "integration_score": 1.0,
+      "readiness_reason": "all_checks_passed",
+      "failing_components": [],
+      "timestamp": "2026-01-10T06:36:33.345608Z",
+      "signature": null,
+      "modules": {
+        "finance": "FinanceAgent",
+        "education": "EducationAgent",
+        "creator": "CreatorAgent",
+        "sample_text": "SampleTextModule"
+      },
+      "memory": {
+        "total_interactions": 17,
+        "unique_users": 6,
+        "db_path": "data/context.db",
+        "adapter_type": "SQLiteAdapter"
+      },
+      "security": {
+        "nonce_store_enabled": true,
+        "sspl_middleware": false
+      },
+      "version": "1.0.0",
+      "insightflow_event": {
+        "insightflow_version": "1.0.0",
+        "event_type": "integration_ready",
+        "component": "core_integrator",
+        "status": "healthy",
+        "details": {
+          "integration_checks": {
+            "core_modules_loaded": true,
+            "database_accessible": true,
+            "gateway_initialized": true,
+            "memory_adapter_ready": true
+          },
+          "module_load_status": {
+            "finance": "valid",
+            "education": "valid",
+            "creator": "valid",
+            "sample_text": "valid"
+          },
+          "readiness_reason": "all_checks_passed"
+        },
+        "timestamp": "2026-01-10T06:36:33.345530+00:00",
+        "integration_score": 1.0
+      }
+    },
+    "feedback_rejection": true,
+    "integration_ready": true,
+    "integration_score": 1.0
+  },
+  "noopur_disabled": {
+    "health": {
+      "status": "healthy",
+      "components": {
+        "database": "healthy",
+        "gateway": "healthy",
+        "modules": 4
+      },
+      "timestamp": "2026-01-10T06:36:39.474076Z",
+      "insightflow_event": {
+        "insightflow_version": "1.0.0",
+        "event_type": "heartbeat",
+        "component": "core_integrator",
+        "status": "healthy",
+        "details": {
+          "database": "healthy",
+          "gateway": "healthy",
+          "modules": 4
+        },
+        "timestamp": "2026-01-10T06:36:39.473985+00:00"
+      }
+    },
+    "diagnostics": {
+      "module_load_status": {
+        "finance": "valid",
+        "education": "valid",
+        "creator": "valid",
+        "sample_text": "valid"
+      },
+      "integration_ready": true,
+      "integration_checks": {
+        "core_modules_loaded": true,
+        "database_accessible": true,
+        "gateway_initialized": true,
+        "memory_adapter_ready": true
+      },
+      "integration_score": 1.0,
+      "readiness_reason": "all_checks_passed",
+      "failing_components": [],
+      "timestamp": "2026-01-10T06:36:41.500032Z",
+      "signature": null,
+      "modules": {
+        "finance": "FinanceAgent",
+        "education": "EducationAgent",
+        "creator": "CreatorAgent",
+        "sample_text": "SampleTextModule"
+      },
+      "memory": {
+        "total_interactions": 17,
+        "unique_users": 6,
+        "db_path": "data/context.db",
+        "adapter_type": "SQLiteAdapter"
+      },
+      "security": {
+        "nonce_store_enabled": true,
+        "sspl_middleware": false
+      },
+      "version": "1.0.0",
+      "insightflow_event": {
+        "insightflow_version": "1.0.0",
+        "event_type": "integration_ready",
+        "component": "core_integrator",
+        "status": "healthy",
+        "details": {
+          "integration_checks": {
+            "core_modules_loaded": true,
+            "database_accessible": true,
+            "gateway_initialized": true,
+            "memory_adapter_ready": true
+          },
+          "module_load_status": {
+            "finance": "valid",
+            "education": "valid",
+            "creator": "valid",
+            "sample_text": "valid"
+          },
+          "readiness_reason": "all_checks_passed"
+        },
+        "timestamp": "2026-01-10T06:36:41.499941+00:00",
+        "integration_score": 1.0
+      }
+    },
+    "feedback_rejection": true,
+    "integration_ready": true,
+    "integration_score": 1.0
+  },
+  "determinism_test": {
+    "run1_ready": true,
+    "run2_ready": true,
+    "deterministic": true
+  }
+}

@@ -1,0 +1,171 @@
+{
+  "config_name": "sqlite_only",
+  "env_config": {
+    "USE_MONGODB": "false",
+    "INTEGRATOR_USE_NOOPUR": "false",
+    "SSPL_ENABLED": "true"
+  },
+  "timestamp": "2026-01-10T06:24:21.611798Z",
+  "endpoints": {
+    "health": {
+      "endpoint": "/system/health",
+      "method": "GET",
+      "status_code": 200,
+      "success": true,
+      "response_time_ms": 2052,
+      "timestamp": "2026-01-10T06:24:23.665571Z",
+      "response_data": {
+        "status": "healthy",
+        "components": {
+          "database": "healthy",
+          "gateway": "healthy",
+          "modules": 4
+        },
+        "timestamp": "2026-01-10T06:24:23.664343Z",
+        "insightflow_event": {
+          "insightflow_version": "1.0.0",
+          "event_type": "heartbeat",
+          "component": "core_integrator",
+          "status": "healthy",
+          "details": {
+            "database": "healthy",
+            "gateway": "healthy",
+            "modules": 4
+          },
+          "timestamp": "2026-01-10T06:24:23.664243+00:00"
+        }
+      }
+    },
+    "diagnostics": {
+      "endpoint": "/system/diagnostics",
+      "method": "GET",
+      "status_code": 200,
+      "success": true,
+      "response_time_ms": 2042,
+      "timestamp": "2026-01-10T06:24:25.709665Z",
+      "response_data": {
+        "module_load_status": {
+          "finance": "valid",
+          "education": "valid",
+          "creator": "valid",
+          "sample_text": "valid"
+        },
+        "integration_ready": true,
+        "integration_checks": {
+          "core_modules_loaded": true,
+          "database_accessible": true,
+          "gateway_initialized": true,
+          "memory_adapter_ready": true
+        },
+        "integration_score": 1.0,
+        "readiness_reason": "all_checks_passed",
+        "failing_components": [],
+        "timestamp": "2026-01-10T06:24:25.708498Z",
+        "signature": null,
+        "modules": {
+          "finance": "FinanceAgent",
+          "education": "EducationAgent",
+          "creator": "CreatorAgent",
+          "sample_text": "SampleTextModule"
+        },
+        "memory": {
+          "total_interactions": 11,
+          "unique_users": 5,
+          "db_path": "data/context.db",
+          "adapter_type": "SQLiteAdapter"
+        },
+        "security": {
+          "nonce_store_enabled": true,
+          "sspl_middleware": false
+        },
+        "version": "1.0.0",
+        "insightflow_event": {
+          "insightflow_version": "1.0.0",
+          "event_type": "integration_ready",
+          "component": "core_integrator",
+          "status": "healthy",
+          "details": {
+            "integration_checks": {
+              "core_modules_loaded": true,
+              "database_accessible": true,
+              "gateway_initialized": true,
+              "memory_adapter_ready": true
+            },
+            "module_load_status": {
+              "finance": "valid",
+              "education": "valid",
+              "creator": "valid",
+              "sample_text": "valid"
+            },
+            "readiness_reason": "all_checks_passed"
+          },
+          "timestamp": "2026-01-10T06:24:25.708399+00:00",
+          "integration_score": 1.0
+        }
+      }
+    },
+    "core": {
+      "endpoint": "/core",
+      "method": "POST",
+      "status_code": 200,
+      "success": true,
+      "response_time_ms": 2070,
+      "timestamp": "2026-01-10T06:24:27.781089Z",
+      "response_data": {
+        "status": "success",
+        "message": "Financial analysis completed",
+        "result": {
+          "analysis_type": "financial",
+          "insights": "Sample insights"
+        }
+      }
+    },
+    "feedback_invalid": {
+      "endpoint": "/feedback",
+      "method": "POST",
+      "status_code": 422,
+      "success": false,
+      "response_time_ms": 2025,
+      "timestamp": "2026-01-10T06:24:29.808476Z",
+      "response_data": {
+        "detail": [
+          {
+            "type": "int_parsing",
+            "loc": [
+              "body",
+              "generation_id"
+            ],
+            "msg": "Input should be a valid integer, unable to parse string as an integer",
+            "input": "invalid_format"
+          },
+          {
+            "type": "missing",
+            "loc": [
+              "body",
+              "command"
+            ],
+            "msg": "Field required",
+            "input": {
+              "user_id": "test_user",
+              "generation_id": "invalid_format",
+              "feedback_type": "invalid_type",
+              "content": "test feedback",
+              "timestamp": "2026-01-10T06:24:29.806952"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "health_status": "healthy",
+  "components": {
+    "database": "healthy",
+    "gateway": "healthy",
+    "modules": 4
+  },
+  "integration_ready": true,
+  "integration_score": 1.0,
+  "failing_components": [],
+  "success": true,
+  "feedback_rejection_working": true
+}
