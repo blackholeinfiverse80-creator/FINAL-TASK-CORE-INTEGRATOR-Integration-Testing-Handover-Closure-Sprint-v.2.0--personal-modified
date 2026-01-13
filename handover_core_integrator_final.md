@@ -106,6 +106,12 @@ Response: 200 OK
 - **Specific Database Versions**: Uses standard interfaces
 - **Third-party Authentication**: SSPL only
 
+### 4. Security Features (CRITICAL LIMITATIONS)
+- **User Authentication**: No authentication system implemented
+- **Access Control**: No user session validation
+- **Data Isolation**: Users can access other users' data via URL manipulation
+- **Authorization**: No role-based access control
+
 ---
 
 ## INTEGRATION TEAM RESPONSIBILITIES
